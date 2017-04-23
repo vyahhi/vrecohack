@@ -73,13 +73,13 @@
 		echo "google.charts.setOnLoadCallback(drawChart_$step);";
 		echo "function drawChart_$step() {";
 		echo 'var data = new google.visualization.DataTable();';
-        echo "data.addColumn('string', 'Topping');";
-        echo "data.addColumn('number', 'Slices');";
-        echo "data.addRows([";
+		echo "data.addColumn('string', 'Topping');";
+		echo "data.addColumn('number', 'Slices');";
+		echo "data.addRows([";
 		foreach ($choices as $choice => $value) {
 			echo "['$choice', $value],";
 		}
-        echo ']);'; 
+		echo ']);'; 
 		echo "var chart = new google.visualization.PieChart(document.getElementById('chart_div_$step'));";
 		echo "chart.draw(data, options_$step);";
 		echo '}';
