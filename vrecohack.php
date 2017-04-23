@@ -1,5 +1,6 @@
 <html>
 <head>
+	<meta charset="UTF-8">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -183,7 +184,7 @@
 	echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEhXQpJ1SOaG9sgpfp1SjwQ94goauC298&callback=initMap"></script>';
 	//echo '<div style="float: right"><iframe width="400" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=' . $details->latitude . ',' . $details->longitude . '&hl=es&z=13&output=embed"></iframe></div>';
 	echo '<div>';
-	echo '<h1>FUTUREVIEWAR</h1>';
+	echo '<h1 style="text-align: center">FUTUREVIEWAR<br>🚮♻️🌎🌟🎉</h1>';
 	echo '<h2>Those who live within 1-mile radius from you (' . $details->city . ', ' . $details->region . ', ' . $details->country . ') made the following choices:</h2>';
 	echo '</div>';
 	foreach ($stats as $step => $choices) {
