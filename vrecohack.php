@@ -1,18 +1,20 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<style>
-		@font-face {
+/*		@font-face {
 		 font-family: roboto;
-	 	 src: url(RobotoCondensed-Bold.ttf);
+	 	 src: url(Lato-Regular.ttf);
 		}
-		body, svg, text {
-	 		font-family: roboto;
+*/		body, svg, text {
+	 		font-family: Lato;
 	 		color: #fff;
 	 		background-color: #222;
+	 		font-weight: normal;
 		}
 	</style>
 </head>
@@ -79,12 +81,12 @@
 		0 => array('name' => 'Trip to Work', 0 => 'Car', 1 => 'Bike'),
 		1 => array('name' => 'Coffee', 0 => 'Iced', 1 => 'Hot'),
 		2 => array('name' => 'Reading', 0 => 'Kindle', 1 => 'Books'),
-		3 => array('name' => 'Grocery Store', 0 => 'Plastic Bags', 1 => 'Go Home'),
+		3 => array('name' => 'Grocery Store', 0 => 'Buy Plastic Bags', 1 => 'Go Home'),
 		4 => array('name' => 'Child Birthday', 0 => 'Action Figure', 1 => 'Crayons'),
 		5 => array('name' => 'Trip', 0 => 'Plane', 1 => 'Drive'),
 	);
 
-	echo '<div style="float: right; height: 400px; width: 400px;" id="map"></div>';
+	echo '<div style="float: right; height: 400px; width: 400px; padding-bottom: 20px;" id="map"></div>';
 	echo "	<script>
 	  function initMap() {
 		var uluru = {lat: $details->latitude, lng: $details->longitude};
@@ -92,83 +94,72 @@
 		  zoom: 13,
 		  center: uluru,
 		  styles: [
-			{elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-			{elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-			{elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+			{
+				featureType: 'road',
+				elementType: 'labels',
+				stylers: [
+					{ visibility: 'off' }
+				]
+			},
+			{
+				featureType: 'poi',
+				elementType: 'labels',
+				stylers: [
+					{ visibility: 'off' }
+				]
+			},
+			{elementType: 'geometry', stylers: [{color: '#222222'}]},
+			{elementType: 'labels.text.stroke', stylers: [{color: '#222222'}]},
+			{elementType: 'labels.text.fill', stylers: [{color: '#999999'}]},
 			{
 			  featureType: 'administrative.locality',
 			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#d59563'}]
-			},
-			{
-			  featureType: 'poi',
-			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#d59563'}]
+			  stylers: [{color: '#999999'}]
 			},
 			{
 			  featureType: 'poi.park',
 			  elementType: 'geometry',
-			  stylers: [{color: '#263c3f'}]
-			},
-			{
-			  featureType: 'poi.park',
-			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#6b9a76'}]
+			  stylers: [{color: '#226622'}]
 			},
 			{
 			  featureType: 'road',
 			  elementType: 'geometry',
-			  stylers: [{color: '#38414e'}]
+			  stylers: [{color: '#333333'}]
 			},
 			{
 			  featureType: 'road',
 			  elementType: 'geometry.stroke',
-			  stylers: [{color: '#212a37'}]
-			},
-			{
-			  featureType: 'road',
-			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#9ca5b3'}]
+			  stylers: [{color: '#000000'}]
 			},
 			{
 			  featureType: 'road.highway',
 			  elementType: 'geometry',
-			  stylers: [{color: '#746855'}]
+			  stylers: [{color: '#666666'}]
 			},
 			{
 			  featureType: 'road.highway',
 			  elementType: 'geometry.stroke',
-			  stylers: [{color: '#1f2835'}]
-			},
-			{
-			  featureType: 'road.highway',
-			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#f3d19c'}]
+			  stylers: [{color: '#000000'}]
 			},
 			{
 			  featureType: 'transit',
 			  elementType: 'geometry',
-			  stylers: [{color: '#2f3948'}]
-			},
-			{
-			  featureType: 'transit.station',
-			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#d59563'}]
+			  stylers: [{color: '#333333'}]
 			},
 			{
 			  featureType: 'water',
 			  elementType: 'geometry',
-			  stylers: [{color: '#17263c'}]
+			  stylers: [{color: '#222266'}]
 			},
 			{
 			  featureType: 'water',
 			  elementType: 'labels.text.fill',
-			  stylers: [{color: '#515c6d'}]
+			  stylers: [{color: '#999999'}]
 			},
 			{
 			  featureType: 'water',
 			  elementType: 'labels.text.stroke',
-			  stylers: [{color: '#17263c'}]
+			  stylers: [{color: '#222222'}]
 			}
 		  ]
 		});
@@ -184,21 +175,25 @@
 	echo '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEhXQpJ1SOaG9sgpfp1SjwQ94goauC298&callback=initMap"></script>';
 	//echo '<div style="float: right"><iframe width="400" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=' . $details->latitude . ',' . $details->longitude . '&hl=es&z=13&output=embed"></iframe></div>';
 	echo '<div>';
-	echo '<h1 style="text-align: center">FUTUREVIEWAR<br>🚮♻️🌎🌟🎉</h1>';
-	echo '<h2>Those who live within 1-mile radius from you (' . $details->city . ', ' . $details->region . ', ' . $details->country . ') made the following choices:</h2>';
+	echo '<h1 style="text-align: center">FUTUREVIEWAR</h1>';
+	echo '<center><img src="logo-white.png" height="350"></center>';
+	echo '<h2 style="padding: 30px; clear: both;">Those who live within 1-mile radius from you (' . $details->city . ', ' . $details->region . ', ' . $details->country . ') made the following choices:</h2>';
 	echo '</div>';
 	foreach ($stats as $step => $choices) {
 		ksort($choices);
-		$step_text = $names[$step]['name'];
-		echo "<div id='chart_div_$step' style='display: inline-block;'></div>";
+		if (!isset($names[$step])) continue;
+		$step_text = '#' . ($step + 1) . ' ' . $names[$step]['name'] . ':';
+		//echo "<h3>$step_text</h3>";
+		echo "<div id='chart_div_$step'></div>";
 		echo '<script type="text/javascript">';
-		echo "var options_$step = {'title':'$step_text', 'width':400, 'height':400, 'is3D':true, 'backgroundColor': '#222', slices: {
+		echo "var options_$step = {'title':'$step_text', 'width':'100%', 'height':400, 'is3D':true, 'backgroundColor': '#222', slices: {
 			0: { color: '#6bc5ab' },
 			1: { color: '#8b6bc5' }
 		  },
+		  //titlePosition: 'none', 
 		  'titleTextStyle': {'color': '#fff', 'fontSize': '20'},
 		  'pieSliceTextStyle': {'color': '#fff', 'fontSize': '20'},
-		  'legend': {'position': 'bottom', 'textStyle': {'color': '#fff', 'fontSize': '20'}},
+		  'legend': {'position': 'labeled', 'textStyle': {'color': '#fff', 'fontSize': '20'}},
 		 };";
 		echo "google.charts.load('current', {'packages':['corechart']});";
 		echo "google.charts.setOnLoadCallback(drawChart_$step);";
