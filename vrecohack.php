@@ -2,9 +2,9 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
 	<style>
 /*		@font-face {
 		 font-family: roboto;
@@ -66,6 +66,7 @@
 			if (isset($request['action'])) {
 				$step = $request['step'];
 				$choice = $request['choice'];
+				$country = $request['country'];
 				$stats[$step][$choice] += 1;
 			}
 		}
@@ -176,8 +177,23 @@
 	//echo '<div style="float: right"><iframe width="400" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=' . $details->latitude . ',' . $details->longitude . '&hl=es&z=13&output=embed"></iframe></div>';
 	echo '<div>';
 	echo '<h1 style="text-align: center">FUTUREVIEWAR</h1>';
+
+	include 'countries.php';
+	echo 'Choose country: <select>';
+	foreach ($countries as $key => $country) {
+		if (levenshtein(strtolower($country), strtolower($details->country_name)) <= 1) {
+			echo "<option value=$key>$country</option>";
+		}
+	}
+	echo '<option disabled>──────────</option>';
+	foreach ($countries as $key => $country) {
+		if (levenshtein(strtolower($country), strtolower($details->country_name)) > 1) { 
+			echo "<option value=$key>$country</option>";
+		}
+	}
+	echo '</select>';
 	echo '<center><img src="logo-white.png" height="350"></center>';
-	echo '<h2 style="padding: 30px; clear: both;">Those who live within 1-mile radius from you (' . $details->city . ', ' . $details->region . ', ' . $details->country . ') made the following choices:</h2>';
+	echo '<h2 style="padding: 30px; clear: both;">Those who live within 1-mile radius from you (' . $details->city . ', ' . $details->region . ', ' . $details->country_name . ') made the following choices:</h2>';
 	echo '</div>';
 	foreach ($stats as $step => $choices) {
 		ksort($choices);
